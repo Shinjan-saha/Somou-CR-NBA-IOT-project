@@ -16,47 +16,6 @@
             color: #ffffff;
         }
 
-        #navbar {
-            background-color: black;
-            height: 60px;
-            position: relative;
-            top: 0px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 0 20px;
-        }
-
-        button {
-            background-color: #f08804;
-            color: white;
-            border: none;
-            padding: 5px 10px;
-            border-radius: 4px;
-            cursor: pointer;
-        }
-
-        #logo {
-            color: #f08804;
-            font-size: 30px;
-            font-family: cursive;
-        }
-
-        a {
-            margin-right: 20px;
-            color: whitesmoke;
-            font-weight: bold;
-            text-decoration: none;
-            background: none; 
-        }
-
-        #navbar input {
-            padding: 5px;
-            border-radius: 4px;
-            border: 1px solid #ccc;
-            margin-right: 10px;
-        }
-
         body {
             text-align: center;
         }
@@ -77,31 +36,21 @@
         }
 
         .chart-container {
-            width: 80%;
             margin: 2rem auto;
-            background-color: #2c3e50;
             padding: 20px;
             border-radius: 8px;
         }
 
         canvas {
+            width: 100% !important;
+            height: 400px !important;
+            display: block;
             background-color: #ffffff;
             padding: 10px;
             border-radius: 8px;
         }
 
         @media (max-width: 768px) {
-            #navbar {
-                flex-direction: column;
-                height: auto;
-                padding: 10px;
-            }
-
-            #navbar a, #navbar input, button {
-                margin: 10px 0;
-                text-align: center;
-            }
-
             h1 {
                 font-size: 2rem;
                 margin: 1.5rem 1rem;
@@ -109,17 +58,11 @@
 
             .main-container {
                 padding: 1rem;
-                grid-template-columns: 1fr;
             }
 
             .chart-container {
-                width: 100%;
                 margin: 1rem 0;
                 padding: 15px;
-            }
-
-            a {
-                margin-right: 0;
             }
         }
     </style>
@@ -134,7 +77,6 @@
                 <a href="#">Videos</a>
                 <a href="/team.html">Team Member</a>
                 <a href="#">Drive</a>
-               
             </div>
         </div>
     </header>
@@ -156,10 +98,6 @@
         </div>
     </div>
 
-
-
-
-    
     <script>
         async function fetchData(fieldNumber) {
             const channelId = '2621783';
@@ -174,7 +112,7 @@
         function createChart(chartId, labels, data, title) {
             const ctx = document.getElementById(chartId).getContext('2d');
             new Chart(ctx, {
-                type: 'bar', 
+                type: 'bar',
                 data: {
                     labels: labels,
                     datasets: [{
@@ -209,7 +147,7 @@
             const titles = ['Voltage', 'Current', 'Power'];
             for (let i = 1; i <= 3; i++) {
                 const data = await fetchData(i);
-                
+
                 const filteredData = data.filter(feed => feed[`field${i}`] !== undefined && !isNaN(feed[`field${i}`]));
                 const labels = filteredData.map(feed => new Date(feed.created_at).toLocaleString());
                 const values = filteredData.map(feed => parseFloat(feed[`field${i}`]));
